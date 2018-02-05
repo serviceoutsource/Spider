@@ -63,7 +63,7 @@ public class FoodBook {
     }
 
     public boolean judge() {
-        if (this.foodIngredient == null || this.steps == null || this.foodName == null) {
+        if (this.foodIngredient.size() == 0 || this.steps.size() == 0 || this.foodName == null) {
             return false;
         }
         return true;

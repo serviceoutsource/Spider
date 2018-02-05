@@ -23,6 +23,10 @@ import static java.util.regex.Pattern.compile;
  */
 public class MatchUrlImpl implements MatchUrl {
 
+    public static String HEADERS_Mozilla = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58.0";
+    public static String HEADERS_Safari = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6";
+    public static String HEADERS_Chrome = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36";
+
     @Override
     public String getContext(String url) {
         StringBuffer context = new StringBuffer();
@@ -30,8 +34,7 @@ public class MatchUrlImpl implements MatchUrl {
         try {
             URL realUrl = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) realUrl.openConnection();
-            String headers = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6";
-            connection.addRequestProperty("User-Agent", headers);
+            connection.addRequestProperty("User-Agent", HEADERS_Chrome);
             connection.connect();
             if (connection.getResponseCode() != 404) {
                 br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));

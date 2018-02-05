@@ -11,22 +11,40 @@ import org.bson.Document;
  */
 public class Main {
 
+    public static MatchUrl matchUrl = new MatchUrlImpl();
+
+
     /**
      *
      * @param args
      */
     public static void main(String[] args) {
-        MatchUrl matchUrl = new MatchUrlImpl();
         for (int i = 100000000; i < 201790139; i ++) {
-            FoodBook foodBook = matchUrl.getFoodBooks(matchUrl.getContext("https://www.xiachufang.com/recipe/" + i + "/"));
-            if (foodBook != null && foodBook.judge()) {
-                Document document = new Document("foodType", foodBook.getFoodType());
-                document.append("foodName", foodBook.getFoodName());
-                document.append("foodIngredient", foodBook.getFoodIngredient());
-                document.append("foodSteps", foodBook.getSteps());
-                document.append("foodPicUrls", foodBook.getFoodPicUrls());
-                MongoJDBC.InsertDocument(document);
+            if ((i&2) == 0) {
+                try {
+                    Insert(matchUrl.getContext("https://www.xiachufang.com/recipe/" + i + "/"), i);
+                    System.out.println("sleep: " + i);
+                    System.out.println("Thread sleep 5 s");
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Insert(matchUrl.getContext("https://www.xiachufang.com/recipe/" + i + "/"), i);
             }
+        }
+    }
+
+    public static void Insert(String context, long foodCode) {
+        FoodBook foodBook = matchUrl.getFoodBooks(context);
+        if (foodBook != null && foodBook.judge()) {
+            Document document = new Document("foodCode", foodCode);
+            document.append("foodType", foodBook.getFoodType());
+            document.append("foodName", foodBook.getFoodName());
+            document.append("foodIngredient", foodBook.getFoodIngredient());
+            document.append("foodSteps", foodBook.getSteps());
+            document.append("foodPicUrls", foodBook.getFoodPicUrls());
+            MongoJDBC.InsertDocument(document);
         }
     }
 

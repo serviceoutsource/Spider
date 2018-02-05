@@ -27,7 +27,7 @@ public final class MongoJDBC {
     public static void InsertDocument(Document document) {
         MongoCollection<Document> collection = getMongoCollection();
         collection.insertOne(document);
-        System.out.println("文档插入成功");
+        System.out.println("Document insert success");
     }
 
 }
