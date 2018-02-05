@@ -2,6 +2,6 @@
 Java Spider
 
 > how to use it ?
-```java
+```shell
 java -jar Hyperflex-Spider.jar
 ```
