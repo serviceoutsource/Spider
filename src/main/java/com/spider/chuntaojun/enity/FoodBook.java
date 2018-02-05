@@ -64,6 +64,7 @@ public class FoodBook {
 
     public boolean judge() {
         if (this.foodIngredient.size() == 0 || this.steps.size() == 0 || this.foodName == null) {
+            System.out.println("this web page isn't exist!");
             return false;
         }
         return true;

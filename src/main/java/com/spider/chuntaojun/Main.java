@@ -19,13 +19,13 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        for (int i = 100000000; i < 201790139; i ++) {
+        for (int i = 100002998; i < 201790139; i ++) {
             if ((i&2) == 0) {
                 try {
                     Insert(matchUrl.getContext("https://www.xiachufang.com/recipe/" + i + "/"), i);
                     System.out.println("sleep: " + i);
-                    System.out.println("Thread sleep 5 s");
-                    Thread.sleep(5000);
+                    System.out.println("Thread sleep 10 s");
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
